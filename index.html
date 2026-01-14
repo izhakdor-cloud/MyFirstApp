@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ניהול תקציב חכם 2026-2027</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>ניהול פיננסי אישי</h1>
+        <div class="header-controls">
+            <div class="selectors">
+                <select id="currentYear">
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                </select>
+                <select id="currentMonth"></select>
+            </div>
+            <button id="closeMonthBtn" class="primary-btn">סגור חודש ושמור סיכום</button>
+        </div>
+    </header>
+
+    <div class="input-panel card">
+        <select id="typeInput">
+            <option value="monthlyExpense">הוצאה חודשית</option>
+            <option value="fixedExpense">הוראת קבע (קבוע)</option>
+            <option value="income">הכנסה</option>
+            <option value="savings">הפרשה לחיסכון (ידני)</option>
+        </select>
+        <input type="text" id="descInput" list="suggestions" placeholder="תיאור...">
+        <datalist id="suggestions"></datalist>
+        <input type="number" id="amountInput" placeholder="סכום" inputmode="decimal">
+        <input type="text" id="noteInput" placeholder="הערות...">
+        <button id="addBtn">הוסף</button>
+    </div>
+
+    <div class="tables-grid">
+        <div class="card table-container">
+            <h3>| הוראות קבע</h3>
+            <div class="scroll-area">
+                <table id="fixedExpenseTable">
+                    <thead><tr><th>תיאור</th><th>סכום</th><th>הערות</th><th></th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card table-container">
+            <h3>| הוצאות חודשיות</h3>
+            <div class="scroll-area">
+                <table id="monthlyExpenseTable">
+                    <thead><tr><th>תיאור</th><th>סכום</th><th>הערות</th><th></th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card table-container full-width">
+        <h3>| הכנסות</h3>
+        <div class="scroll-area">
+            <table id="incomeTable">
+                <thead><tr><th>תיאור</th><th>סכום</th><th>הערות</th><th></th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="dashboard-footer">
+        <div class="summary-card">
+            <div class="summary-line"><span>סה"כ הכנסות:</span> <span id="totalInc">0</span></div>
+            <div class="summary-line"><span>סה"כ הוצאות:</span> <span id="totalExp">0</span></div>
+            <div class="summary-line" title="הכנסות פחות הוצאות"><span>פוטנציאל חיסכון:</span> <span id="potentialSav">0</span></div>
+            <div class="summary-line"><span>הפרשה ידנית לחיסכון:</span> <span id="manualSav">0</span></div>
+            <div class="summary-line balance"><span>יתרה נטו (עו"ש):</span> <span id="balance">0</span></div>
+        </div>
+        <div class="chart-card">
+            <canvas id="expenseChart"></canvas>
+        </div>
+    </div>
+
+    <div class="card full-width" id="yearlySummarySection">
+        <h3>| סיכום חודשי מצטבר</h3>
+        <table id="yearlySummaryTable">
+            <thead>
+                <tr>
+                    <th>חודש</th>
+                    <th>הכנסות</th>
+                    <th>הוצאות</th>
+                    <th>נחסך החודש</th>
+                    <th>יתרה מצטברת</th>
+                    <th>פעולה</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
+<div class="backup-controls card">
+    <h4>💾 ניהול נתונים (גיבוי)</h4>
+    <button onclick="exportData()" class="backup-btn">הורד קובץ גיבוי למחשב</button>
+    <input type="file" id="importFile" style="display:none" onchange="importData(event)">
+    <button onclick="document.getElementById('importFile').click()" class="backup-btn import">טען נתונים מקובץ</button>
+</div>
